@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using xyzboutique.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using xyzboutique.Infrastructure.Data;
 namespace xyzboutique.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240702164654_UpdatingEntities")]
+    partial class UpdatingEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,44 +158,6 @@ namespace xyzboutique.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("xyzboutique.Domain.Entities.DetallePedido", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("Cantidad")
-                        .HasColumnType("int");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PedidoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
-
-                    b.HasIndex("ProductoId");
-
-                    b.ToTable("DetallePedidos");
-                });
-
             modelBuilder.Entity("xyzboutique.Domain.Entities.Empleado", b =>
                 {
                     b.Property<int>("Id")
@@ -312,6 +277,9 @@ namespace xyzboutique.Infrastructure.Data.Migrations
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PedidoId")
+                        .HasColumnType("int");
+
                     b.Property<double?>("Precio")
                         .HasColumnType("float");
 
@@ -321,14 +289,14 @@ namespace xyzboutique.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(8)");
 
                     b.Property<int?>("TipoId")
-                        .HasColumnType("int")
-                        .HasColumnName("IdTipoProductos");
+                        .HasColumnType("int");
 
                     b.Property<int?>("UnidadDeMedidaId")
-                        .HasColumnType("int")
-                        .HasColumnName("IdUnidadesDeMedida");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
 
                     b.HasIndex("TipoId");
 
@@ -604,19 +572,6 @@ namespace xyzboutique.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("xyzboutique.Domain.Entities.DetallePedido", b =>
-                {
-                    b.HasOne("xyzboutique.Domain.Entities.Pedido", null)
-                        .WithMany("ListaDeProductos")
-                        .HasForeignKey("PedidoId");
-
-                    b.HasOne("xyzboutique.Domain.Entities.Producto", "Producto")
-                        .WithMany()
-                        .HasForeignKey("ProductoId");
-
-                    b.Navigation("Producto");
-                });
-
             modelBuilder.Entity("xyzboutique.Domain.Entities.Pedido", b =>
                 {
                     b.HasOne("xyzboutique.Domain.Entities.Empleado", "Repartidor")
@@ -634,6 +589,10 @@ namespace xyzboutique.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("xyzboutique.Domain.Entities.Producto", b =>
                 {
+                    b.HasOne("xyzboutique.Domain.Entities.Pedido", null)
+                        .WithMany("ListaDeProductos")
+                        .HasForeignKey("PedidoId");
+
                     b.HasOne("xyzboutique.Domain.Entities.TipoProducto", "Tipo")
                         .WithMany()
                         .HasForeignKey("TipoId");
