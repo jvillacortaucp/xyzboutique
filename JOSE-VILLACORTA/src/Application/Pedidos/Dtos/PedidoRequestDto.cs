@@ -1,10 +1,14 @@
-﻿namespace xyzboutique.Domain.Entities;
+﻿using xyzboutique.Application.Pedidos.Dtos;
 
-public class Pedido : BaseAuditableEntity
+namespace xyzboutique.Web.Models;
+
+public class PedidoRequestDto
 {
+    public int? Id { get; set; }
+
     public int? NumeroDePedido { get; set; }
 
-    public List<DetallePedido>? ListaDeProductos { get; set; }
+    public List<DetallePedidoDto>? ListaDeProductos { get; set; }
 
     public DateTime? FechaDePedido { get; set; }
 
@@ -14,14 +18,10 @@ public class Pedido : BaseAuditableEntity
 
     public DateTime? FechaDeEntrega { get; set; }
 
-    public Empleado? Vendedor { get; set; }
-
-    public Empleado? Repartidor { get; set; }
-
-    public int? Estado { get; set; }
-
     public int? VendedorId { get; set; }
 
     public int? RepartidorId { get; set; }
+
+    public int? Estado { get; set; }
 
 }

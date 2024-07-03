@@ -21,6 +21,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<Pedido> Pedidos => Set<Pedido>();
 
+    public DbSet<DetallePedido> DetallePedidos => Set<DetallePedido>();
+
     public DbSet<TipoProducto> TipoProductos => Set<TipoProducto>();
 
     public DbSet<UnidadDeMedida> UnidadesDeMedida => Set<UnidadDeMedida>();

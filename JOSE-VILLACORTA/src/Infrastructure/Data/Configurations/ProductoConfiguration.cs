@@ -11,5 +11,19 @@ public class ProductoConfiguration : IEntityTypeConfiguration<Producto>
         builder.Property(t => t.SKU)
             .HasMaxLength(8)
             .IsRequired();
+
+
+        builder.HasKey(p => p.Id);
+
+        builder.HasOne(p => p.Tipo);
+
+        builder
+            .Property("TipoId").HasColumnName("IdTipoProductos");
+
+        builder.HasOne(p => p.UnidadDeMedida);
+
+        builder
+            .Property("UnidadDeMedidaId").HasColumnName("IdUnidadesDeMedida");
+
     }
 }
