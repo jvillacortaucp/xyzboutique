@@ -44,6 +44,48 @@
         ]
       }
     },
+    "/api/Pedidos/{id}": {
+      "patch": {
+        "tags": [
+          "Pedidos"
+        ],
+        "operationId": "UpdateEstadoPedido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEstadoPedidoCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -891,6 +933,26 @@
             "type": "integer",
             "format": "int32",
             "nullable": true
+          }
+        }
+      },
+      "UpdateEstadoPedidoCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "estado"
+        ],
+        "properties": {
+          "idPedido": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "estado": {
+            "type": "integer",
+            "format": "int32",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "exclusiveMaximum": true
           }
         }
       },

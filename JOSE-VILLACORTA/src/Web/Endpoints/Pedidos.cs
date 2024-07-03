@@ -1,5 +1,4 @@
 ﻿using xyzboutique.Application.Pedidos.Commands;
-using xyzboutique.Application.TodoLists.Commands.UpdateTodoList;
 
 namespace xyzboutique.Web.Endpoints;
 
@@ -9,7 +8,15 @@ public class Pedidos : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapPost(CreatePedido);
+            .MapPost(CreatePedido)
+            .MapPatch(UpdateEstadoPedido, "{id}");            
+    }
+
+    public async Task<IResult> UpdateEstadoPedido(ISender sender, int id, UpdateEstadoPedidoCommand command)
+    {
+        if (id != command.IdPedido) return Results.BadRequest();
+        await sender.Send(command);
+        return Results.NoContent();
     }
 
     public async Task<int> CreatePedido(ISender sender, CreatePedidoCommand command)
@@ -19,5 +26,4 @@ public class Pedidos : EndpointGroupBase
 
     
 
-    
 }

@@ -1,6 +1,6 @@
 ﻿namespace xyzboutique.Domain.Enums;
 
-public enum EstadoPedido
+public enum EnumEstadoPedido
 {
     Por_Atender = 0,
     En_Proceso = 1,
