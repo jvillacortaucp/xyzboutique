@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿namespace xyzboutique.Domain.Entities;
 
-namespace xyzboutique.Infrastructure.Identity;
-
-public class ApplicationUser : IdentityUser
+public class Empleado : BaseAuditableEntity
 {
     public string? Nombre { get; set; }
 
     public string? CodigoTrabajador { get; set; }
+
+    public string? CorreoElectronico { get; set; }
 
     public string? Telefono { get; set; }
 

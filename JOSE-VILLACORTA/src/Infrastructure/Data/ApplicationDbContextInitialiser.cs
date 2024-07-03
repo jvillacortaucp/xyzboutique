@@ -87,6 +87,46 @@ public class ApplicationDbContextInitialiser
             }
         }
 
+        // vendedor roles
+        var vendedorRole = new IdentityRole(Roles.Vendedor);
+
+        if (_roleManager.Roles.All(r => r.Name != vendedorRole.Name))
+        {
+            await _roleManager.CreateAsync(vendedorRole);
+        }
+
+        // vendedor users
+        var vendedor = new ApplicationUser { UserName = "vendedor@localhost", Email = "vendedor@localhost" };
+
+        if (_userManager.Users.All(u => u.UserName != vendedor.UserName))
+        {
+            await _userManager.CreateAsync(vendedor, "Vendedor1!");
+            if (!string.IsNullOrWhiteSpace(vendedorRole.Name))
+            {
+                await _userManager.AddToRolesAsync(vendedor, new[] { vendedorRole.Name });
+            }
+        }
+
+        // repartidor roles
+        var repartidorRole = new IdentityRole(Roles.Repartidor);
+
+        if (_roleManager.Roles.All(r => r.Name != repartidorRole.Name))
+        {
+            await _roleManager.CreateAsync(repartidorRole);
+        }
+
+        // repartidor users
+        var repartidor = new ApplicationUser { UserName = "repartidor@localhost", Email = "repartidor@localhost" };
+
+        if (_userManager.Users.All(u => u.UserName != repartidor.UserName))
+        {
+            await _userManager.CreateAsync(repartidor, "Repartidor1!");
+            if (!string.IsNullOrWhiteSpace(repartidorRole.Name))
+            {
+                await _userManager.AddToRolesAsync(repartidor, new[] { repartidorRole.Name });
+            }
+        }
+
         // Default data
         // Seed, if necessary
         if (!_context.TodoLists.Any())
@@ -101,6 +141,55 @@ public class ApplicationDbContextInitialiser
                     new TodoItem { Title = "Realise you've already done two things on the list! 🤯"},
                     new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
                 }
+            });
+
+            await _context.SaveChangesAsync();
+        }
+
+        if (!_context.Empleados.Any())
+        {
+            _context.Empleados.Add(new Empleado
+            {
+                Nombre = "Vendedor",
+                CodigoTrabajador = "123456",
+                CorreoElectronico = "vendedor@localhost",
+                Telefono = "1234567890",
+                Puesto = "Vendedor"
+            });
+            _context.Empleados.Add(new Empleado
+            {
+                Nombre = "Repartidor",
+                CodigoTrabajador = "234567",
+                CorreoElectronico = "repartidor@localhost",
+                Telefono = "2345678901",
+                Puesto = "Repartidor"
+            });
+
+            await _context.SaveChangesAsync();
+        }
+
+        if (!_context.Productos.Any())
+        {
+            _context.TipoProductos.Add(new TipoProducto
+            {
+                Nombre = "Abarrotes"
+            });
+
+            _context.UnidadesDeMedida.Add(new UnidadDeMedida
+            {
+                Nombre = "Unidad",
+                Descripcion = "Unidad",
+                Abreviatura = "Und"
+            });
+
+            _context.Productos.Add(new Producto
+            {
+                SKU = "12345678",
+                Nombre = "Arroz",
+                Tipo = _context.TipoProductos.FirstOrDefault(),
+                Etiquetas = "Arroz,granos,nacional",
+                Precio = 25.00,
+                UnidadDeMedida = _context.UnidadesDeMedida.FirstOrDefault()
             });
 
             await _context.SaveChangesAsync();

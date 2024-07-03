@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using xyzboutique.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using xyzboutique.Infrastructure.Data;
 namespace xyzboutique.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240702152448_UpdatingTableApplicationUser")]
+    partial class UpdatingTableApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,216 +158,6 @@ namespace xyzboutique.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("xyzboutique.Domain.Entities.DetallePedido", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("Cantidad")
-                        .HasColumnType("int");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PedidoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
-
-                    b.HasIndex("ProductoId");
-
-                    b.ToTable("DetallePedidos");
-                });
-
-            modelBuilder.Entity("xyzboutique.Domain.Entities.Empleado", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CodigoTrabajador")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CorreoElectronico")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Puesto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Empleados");
-                });
-
-            modelBuilder.Entity("xyzboutique.Domain.Entities.Pedido", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Estado")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("FechaDeDespacho")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("FechaDeEntrega")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("FechaDePedido")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("FechaDeRecepcion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("NumeroDePedido")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RepartidorId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("VendedorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RepartidorId");
-
-                    b.HasIndex("VendedorId");
-
-                    b.ToTable("Pedidos");
-                });
-
-            modelBuilder.Entity("xyzboutique.Domain.Entities.Producto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Etiquetas")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Precio")
-                        .HasColumnType("float");
-
-                    b.Property<string>("SKU")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
-                    b.Property<int?>("TipoId")
-                        .HasColumnType("int")
-                        .HasColumnName("IdTipoProductos");
-
-                    b.Property<int?>("UnidadDeMedidaId")
-                        .HasColumnType("int")
-                        .HasColumnName("IdUnidadesDeMedida");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TipoId");
-
-                    b.HasIndex("UnidadDeMedidaId");
-
-                    b.ToTable("Productos");
-                });
-
-            modelBuilder.Entity("xyzboutique.Domain.Entities.TipoProducto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TipoProductos");
-                });
-
             modelBuilder.Entity("xyzboutique.Domain.Entities.TodoItem", b =>
                 {
                     b.Property<int>("Id")
@@ -440,40 +233,6 @@ namespace xyzboutique.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TodoLists");
-                });
-
-            modelBuilder.Entity("xyzboutique.Domain.Entities.UnidadDeMedida", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Abreviatura")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UnidadesDeMedida");
                 });
 
             modelBuilder.Entity("xyzboutique.Infrastructure.Identity.ApplicationUser", b =>
@@ -604,49 +363,6 @@ namespace xyzboutique.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("xyzboutique.Domain.Entities.DetallePedido", b =>
-                {
-                    b.HasOne("xyzboutique.Domain.Entities.Pedido", null)
-                        .WithMany("ListaDeProductos")
-                        .HasForeignKey("PedidoId");
-
-                    b.HasOne("xyzboutique.Domain.Entities.Producto", "Producto")
-                        .WithMany()
-                        .HasForeignKey("ProductoId");
-
-                    b.Navigation("Producto");
-                });
-
-            modelBuilder.Entity("xyzboutique.Domain.Entities.Pedido", b =>
-                {
-                    b.HasOne("xyzboutique.Domain.Entities.Empleado", "Repartidor")
-                        .WithMany()
-                        .HasForeignKey("RepartidorId");
-
-                    b.HasOne("xyzboutique.Domain.Entities.Empleado", "Vendedor")
-                        .WithMany()
-                        .HasForeignKey("VendedorId");
-
-                    b.Navigation("Repartidor");
-
-                    b.Navigation("Vendedor");
-                });
-
-            modelBuilder.Entity("xyzboutique.Domain.Entities.Producto", b =>
-                {
-                    b.HasOne("xyzboutique.Domain.Entities.TipoProducto", "Tipo")
-                        .WithMany()
-                        .HasForeignKey("TipoId");
-
-                    b.HasOne("xyzboutique.Domain.Entities.UnidadDeMedida", "UnidadDeMedida")
-                        .WithMany()
-                        .HasForeignKey("UnidadDeMedidaId");
-
-                    b.Navigation("Tipo");
-
-                    b.Navigation("UnidadDeMedida");
-                });
-
             modelBuilder.Entity("xyzboutique.Domain.Entities.TodoItem", b =>
                 {
                     b.HasOne("xyzboutique.Domain.Entities.TodoList", "List")
@@ -679,11 +395,6 @@ namespace xyzboutique.Infrastructure.Data.Migrations
 
                     b.Navigation("Colour")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("xyzboutique.Domain.Entities.Pedido", b =>
-                {
-                    b.Navigation("ListaDeProductos");
                 });
 
             modelBuilder.Entity("xyzboutique.Domain.Entities.TodoList", b =>

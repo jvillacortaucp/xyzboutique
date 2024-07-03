@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pedidos\EventHandlers\" />
+    <Folder Include="Pedidos\Queries\GetPedidosWithPagination\" />
+  </ItemGroup>
+
 </Project>
