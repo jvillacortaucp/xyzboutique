@@ -24,7 +24,7 @@ jobs:
 
       - name: Build with dotnet
         run: |
-          dir
+          cd JOSE-VILLACORTA
           dotnet build --configuration Release
 
       - name: dotnet publish
